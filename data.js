@@ -1,5 +1,5 @@
 /**
- * BANK SOAL & DATA REFLEKSI PSTS BAHASA INGGRIS TINGKAT LANJUT (TL) KELAS XI
+ * QUESTION BANK & REFLECTION DATA FOR PSTS GRADE XI BAHASA INGGRIS TINGKAT LANJUT (TL)
  * SMA PLUS PGRI CIBINONG
  */
 
@@ -101,7 +101,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "B",
         skill: "Main Idea of Narrative",
         level: "LOTS",
-        explanation: "Ide pokok cerita adalah kisah Putri Naga yang melahirkan anak kembar berwujud manusia (Gerong) dan kadal raksasa (nenek moyang komodo)."
+        explanation: "The core premise of the folklore is the story of Princess Putri Naga giving birth to twin brothers: a human boy (Gerong) and a giant lizard (the ancestor of the Komodo dragon)."
     },
     {
         id: 2,
@@ -117,7 +117,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "C",
         skill: "Complication Analysis",
         level: "MOTS",
-        explanation: "Komplikasi utama muncul saat kadal raksasa tumbuh semakin liar dan ditakuti penduduk desa sehingga harus diasingkan ke hutan."
+        explanation: "The primary narrative conflict arises when the lizard twin grows larger and wilder in the wilderness, leading fearful villagers to demand its exile."
     },
     {
         id: 3,
@@ -133,7 +133,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "D",
         skill: "Moral Value & Inference",
         level: "HOTS",
-        explanation: "Pesan moral legenda Pulau Komodo mengajarkan manusia untuk menghormati dan hidup berdampingan secara harmonis dengan satwa dan alam semesta."
+        explanation: "The legend teaches harmony between humanity and wildlife, emphasizing respect and peaceful coexistence with all creatures in the ecosystem."
     },
     {
         id: 4,
@@ -149,7 +149,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "B",
         skill: "Vocabulary in Context",
         level: "MOTS",
-        explanation: "'Cursed' bermakna terkutuk atau membawa kemalangan ('Marked with bad luck or misfortune')."
+        explanation: "In this folklore context, 'cursed' refers to being afflicted with ill-fortune or perceived as an omen of bad luck ('Marked with bad luck or misfortune')."
     },
     {
         id: 5,
@@ -165,7 +165,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "E",
         skill: "Irregular Past Tense Form (find -> found)",
         level: "LOTS",
-        explanation: "Bentuk lampau (V2) tak beraturan dari 'find' adalah 'found', sehingga kalimat yang benar secara gramatikal adalah opsi E."
+        explanation: "The irregular past tense (V2) of the verb 'find' is 'found'. Therefore, option E is the only grammatically accurate construction."
     },
     {
         id: 6,
@@ -181,7 +181,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "D",
         skill: "Specific Detail Retrieval",
         level: "LOTS",
-        explanation: "Paragraf 3 secara eksplisit menyatakan: 'The mother walked slowly, carrying heavy baskets of vegetables...'"
+        explanation: "Paragraph 2 explicitly mentions: 'The mother walked slowly, carrying heavy baskets of vegetables, while her daughter walked gracefully ahead.'"
     },
     {
         id: 7,
@@ -197,7 +197,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "C",
         skill: "Character Traits Evaluation",
         level: "MOTS",
-        explanation: "Watak sang anak digambarkan sombong, angkuh, dan tidak tahu berterima kasih kepada ibunya yang telah berkorban ('Proud and ungrateful')."
+        explanation: "The daughter is portrayed as vain, arrogant, and disrespectful towards her loving, hardworking mother ('Proud and ungrateful')."
     },
     {
         id: 8,
@@ -213,7 +213,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "A",
         skill: "Vocabulary in Context (Synonym)",
         level: "LOTS",
-        explanation: "'Ragged' merujuk pada pakaian yang lusuh, usang, atau robek-robek ('Torn')."
+        explanation: "'Ragged' describes old, worn-out, or torn clothing ('Torn')."
     },
     {
         id: 9,
@@ -229,7 +229,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "A",
         skill: "Simple Past Tense Grammar",
         level: "LOTS",
-        explanation: "Opsi A menggunakan past tense yang benar: 'The girl felt (V2) her body stiffen...'. Opsi lain mengandung kesalahan konjugasi."
+        explanation: "Option A properly applies the simple past tense (V2): 'The girl felt her body stiffen...'. Other options contain incorrect verb forms (heards, seen, finds, begin)."
     },
     {
         id: 10,
@@ -245,7 +245,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "B",
         skill: "Factual Detail Verification",
         level: "LOTS",
-        explanation: "Paragraf 5 menyatakan: 'With tears streaming down her face, she prayed to God, asking for justice...'"
+        explanation: "Paragraph 4 explicitly notes: 'With tears streaming down her face, she prayed to God, asking for justice for her daughter’s arrogance.'"
     },
     {
         id: 11,
@@ -261,7 +261,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "C",
         skill: "Cause & Effect in Narrative",
         level: "LOTS",
-        explanation: "Klenting Kuning menolak mencium Yuyu Kangkang dan memilih menyeberangi sungai sendiri ('walk through the water on her own') sehingga bajunya basah dan kotor."
+        explanation: "Klenting Kuning refused Yuyu Kangkang's improper condition and opted to wade across the river independently, causing her clothes to get wet and muddy."
     },
     {
         id: 12,
@@ -277,7 +277,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "E",
         skill: "Character Contrast",
         level: "MOTS",
-        explanation: "Klenting Merah dan Ijo berwatak egois dan sombong ('selfish and arrogant'), kontras dengan Klenting Kuning yang tulus dan rendah hati."
+        explanation: "Klenting Merah and Klenting Ijo are characterized as selfish, shallow, and arrogant, sharply contrasting with Klenting Kuning's genuine sincerity and humility."
     },
     {
         id: 13,
@@ -293,7 +293,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "D",
         skill: "Plot Resolution Identification",
         level: "LOTS",
-        explanation: "Ande-Ande Lumut melihat ketulusan dan kemurnian hati Klenting Kuning, lalu memilihnya sebagai istri permaisuri ('chose her as his bride')."
+        explanation: "Recognizing her uncompromised dignity, purity of heart, and sincere dedication, Prince Kusumayuda proudly selected Klenting Kuning as his royal bride."
     },
     {
         id: 14,
@@ -309,7 +309,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "E",
         skill: "Negative Fact Verification",
         level: "LOTS",
-        explanation: "Pernyataan E salah karena Klenting Kuning secara tegas menolak tawaran bantuan bersyarat dari Yuyu Kangkang."
+        explanation: "Statement E is false because Klenting Kuning explicitly rejected Yuyu Kangkang's conditional offer and chose to cross on her own."
     },
     {
         id: 15,
@@ -325,7 +325,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "C",
         skill: "Simple Past Tense Structure",
         level: "LOTS",
-        explanation: "Opsi C benar: Subjek + V2 ('refused') + Objek + Adverb ('bravely'). Opsi A, D, E salah karena setelah did/didn't harus kembali ke V1 dasar."
+        explanation: "Option C correctly uses Subject + Verb 2 ('refused') + Object + Adverb. Negative auxiliary 'did not' must be followed by base form (V1), making A, D, and E incorrect."
     },
     {
         id: 16,
@@ -341,7 +341,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "A",
         skill: "Irregular Verbs (swim -> swam)",
         level: "LOTS",
-        explanation: "'Swam' adalah bentuk V2 tak beraturan yang tepat dari 'swim'. (Bentuk lain seharusnya spent, brought, chose, knew)."
+        explanation: "'Swam' is the accurate past form (V2) of 'swim'. The correct irregular past forms of the other verbs are spent, brought, chose, and knew."
     },
     {
         id: 17,
@@ -357,7 +357,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "A",
         skill: "Compound Past Tense Parallelism",
         level: "LOTS",
-        explanation: "Kedua klausa majemuk harus konsisten menggunakan Past Tense (V2): 'escaped' dan 'survived'."
+        explanation: "Both coordinate clauses joined by 'and' must maintain tense consistency in the Simple Past (V2): 'escaped' and 'survived'."
     },
     {
         id: 18,
@@ -373,7 +373,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "E",
         skill: "Specific Detail Retrieval",
         level: "LOTS",
-        explanation: "Pengemis tersebut memohon: 'give me just a handful of rice. I have not eaten for days'."
+        explanation: "The elderly beggar woman made a modest plea: 'Nyai, please… give me just a handful of rice. I have not eaten for days.'"
     },
     {
         id: 19,
@@ -389,7 +389,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "C",
         skill: "Character Action Detail",
         level: "LOTS",
-        explanation: "Nyai Bagendit tertawa mengejek, membentak, dan mendorong wanita tua itu dengan kasar ('laughed cruelly and pushed her away')."
+        explanation: "Nyai Bagendit burst into mocking laughter, shouted harsh words, and forcefully pushed the weak beggar woman away."
     },
     {
         id: 20,
@@ -405,7 +405,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "B",
         skill: "Narrative Generic Structure (Complication)",
         level: "MOTS",
-        explanation: "Komplikasi cerita dipicu saat pengemis memohon dengan sopan tetapi Nyai Bagendit menghina dan menolaknya dengan kejam."
+        explanation: "The primary complication (rising action) occurs when Nyai Bagendit cruel-heartedly mocks and expels the destitute beggar woman, triggering moral and supernatural consequences."
     },
     {
         id: 21,
@@ -421,7 +421,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "D",
         skill: "Narrative Generic Structure (Resolution)",
         level: "MOTS",
-        explanation: "Resolusi atau penyelesaian cerita terjadi saat banjir besar menenggelamkan Nyai Bagendit beserta hartanya dan terbentuk danau Situ Bagendit."
+        explanation: "The resolution concludes the narrative when the immense flood submerges Nyai Bagendit alongside her hoarded treasures, forming Lake Situ Bagendit."
     },
     {
         id: 22,
@@ -437,7 +437,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "C",
         skill: "Past Tense Consistency",
         level: "LOTS",
-        explanation: "Kedua predikat harus konsisten dalam bentuk lampau (V2): 'warned' dan 'ignored'."
+        explanation: "Both verbs across the compound sentence must consistently be in the Past Tense (V2): 'warned' and 'ignored'."
     },
     {
         id: 23,
@@ -453,7 +453,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "B",
         skill: "Direct Detail Verification",
         level: "LOTS",
-        explanation: "Pengemis tersebut memberi peringatan tegas sebelum pergi: 'Remember my words, Nyai. Your greed will bring disaster'."
+        explanation: "The story explicitly quotes the beggar’s solemn warning before departing: 'Remember my words, Nyai. Your greed will bring disaster.'"
     },
     {
         id: 24,
@@ -469,7 +469,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "E",
         skill: "Negative Fact Identification",
         level: "LOTS",
-        explanation: "Tidak ada satu pun warga yang membuat perahu untuk menolong Nyai Bagendit karena mereka lari menyelamatkan diri."
+        explanation: "The passage notes that the frightened villagers fled in panic and none dared approach the rising flood; no one built boats to rescue her."
     },
     {
         id: 25,
@@ -485,7 +485,7 @@ const QUESTIONS_DATA = [
         correctAnswer: "D",
         skill: "Negative Fact Identification",
         level: "LOTS",
-        explanation: "Nyai Bagendit tidak pernah meminta maaf hingga ia tenggelam; ia hanya sibuk berteriak meminta tolong dan menyelamatkan perhiasannya."
+        explanation: "Nyai Bagendit never apologized or showed remorse during the catastrophe; she only screamed for someone to save her and her gold."
     }
 ];
 
