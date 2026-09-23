@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODE GURU - PSTS Bahasa Inggris Tingkat Lanjut Kelas XI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+            background: var(--white);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--slate-200);
+        }
+        .correct-opt {
+            background: #dcfce7 !important;
+            border-color: #16a34a !important;
+            font-weight: 700;
+        }
+        .correct-opt-badge {
+            background: #16a34a;
+            color: #fff;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        .explanation-box {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 0.85rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            color: #334155;
+            margin-top: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PIN SECURITY GATE SCREEN -->
+    <div id="pin-security-overlay" class="pin-lock-overlay">
+        <div class="pin-card">
+            <div class="pin-icon">🔐</div>
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.25rem;">
+                Akses Mode Guru (English TL XI)
+            </h2>
+            <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 1rem;">
+                Masukkan PIN Keamanan Guru untuk membuka Bank Soal & Dashboard Diagnostik:
+            </p>
+
+            <form onsubmit="verifyTeacherPIN(event)">
+                <input type="password" id="input-teacher-pin" class="pin-input" maxlength="10" placeholder="••••••" autofocus required>
+                <div id="pin-error-msg" style="color: #ef4444; font-size: 0.82rem; font-weight: 700; min-height: 20px; margin-bottom: 0.75rem;"></div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 0.95rem; margin-bottom: 0.5rem;">
+                    🔓 Masuk Dashboard
+                </button>
+                <a href="index.html" class="btn btn-outline" style="width: 100%; padding: 0.6rem; font-size: 0.85rem;">
+                    Kembali ke Beranda
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN TEACHER CONTENT (HIDDEN UNTIL UNLOCKED) -->
+    <div id="teacher-main-app" style="display: none;">
+
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-container">
+                <div class="brand-section">
+                    <div class="brand-icon">👨‍🏫</div>
+                    <div class="brand-title">
+                        <h1>MODE GURU • PSTS XI ENGLISH TL</h1>
+                        <p>SMA PLUS PGRI CIBINONG — Permanent Realtime Database</p>
+                    </div>
+                </div>
+
+                <div class="header-controls">
+                    <div class="live-badge" title="Tersambung ke Cloud Realtime Database Permanen">
+                        <span class="live-dot"></span>
+                        <span id="live-status-text">PERMANENT CLOUD LIVE</span>
+                    </div>
+                    <button onclick="lockTeacherMode()" class="btn btn-outline" style="color: #fff; border-color: rgba(255,255,255,0.4); padding: 0.35rem 0.75rem; font-size: 0.78rem;">
+                        🔒 Kunci
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-wrapper">
+
+            <!-- 3 MAIN TABS FOR TEACHER -->
+            <div class="tab-nav">
+                <button class="tab-btn active" id="tab-teacher-btn-q" onclick="switchTeacherTab('questions')">
+                    📋 QUESTIONS (25)
+                    <span class="tab-badge">25 Butir</span>
+                </button>
+                <button class="tab-btn" id="tab-teacher-btn-ref" onclick="switchTeacherTab('reflections')">
+                    💭 REFLECTIONS (3 QUESTIONS)
+                    <span class="tab-badge" id="teacher-ref-badge">Respon Siswa</span>
+                </button>
+                <button class="tab-btn" id="tab-teacher-btn-res" onclick="switchTeacherTab('results')">
+                    📊 RESULT / ANALYSIS
+                    <span class="tab-badge" id="teacher-sub-count-badge">0 Data</span>
+                </button>
+            </div>
+
+            <!-- TAB 1: QUESTIONS (25) -->
+            <section id="tab-teacher-questions" class="tab-content active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📚 Bank 25 Butir Soal PSTS Bahasa Inggris Tingkat Lanjut (TL) Kelas XI</h2>
+                        <span class="badge-tag badge-easy">Kunci Jawaban & Pembahasan Pedagogi</span>
+                    </div>
+                    <p style="color: var(--slate-600); margin-bottom: 1.5rem; font-size: 0.92rem;">
+                        Materi: Narrative Legends (Komodo Island, The Crying Stone, Ande-Ande Lumut, Situ Bagendit), Simple Past Tense (Regular & Irregular Verbs), Generic Structure, and Character Evaluation.
+                    </p>
+
+                    <div id="teacher-questions-list">
+                        <!-- Dynamic rendering of 25 questions with keys and explanations -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: REFLECTIONS (3 QUESTIONS) -->
+            <section id="tab-teacher-reflections" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">💭 3 Pertanyaan Refleksi Siswa English TL</h2>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                        <div class="reflection-box" style="margin-bottom:0;">
+                            <div class="ref-title">Refleksi 1: Struktur & Tokoh Naratif</div>
+                            <div class="ref-q">Pemahaman alur cerita (Orientation, Complication, Resolution) dan evaluasi perwatakan tokoh legenda.</div>
+                        </div>
+                        <div class="reflection-box" style="margin-bottom:0;">
+                            <div class="ref-title">Refleksi 2: Kendala Analisis & Grammar</div>
+                            <div class="ref-q">Tantangan pemahaman bentuk lampau (V2 irregular), kosakata kontekstual, dan cara mengatasinya.</div>
+                        </div>
+                        <div class="reflection-box" style="margin-bottom:0;">
+                            <div class="ref-title">Refleksi 3: Nilai Karakter & Kearifan Lokal</div>
+                            <div class="ref-q">Penerapan nilai kearifan (bakti pada orang tua, ketulusan, kepedulian sosial) dalam kehidupan nyata.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📝 Rekap Respon Refleksi Siswa (Real-Time Feed)</h2>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <select id="filter-ref-class" class="form-select" style="width: auto; padding: 0.4rem 0.8rem; font-size: 0.88rem;" onchange="renderReflectionsFeed()">
+                                <option value="ALL">Semua Kelas (12 Kelas)</option>
+                                <option value="XI INT 1">XI INT 1</option>
+                                <option value="XI INT 2">XI INT 2</option>
+                                <option value="XI INT 3">XI INT 3</option>
+                                <option value="XI INT 4">XI INT 4</option>
+                                <option value="XI REGULER 1">XI REGULER 1</option>
+                                <option value="XI REGULER 2">XI REGULER 2</option>
+                                <option value="XI REGULER 3">XI REGULER 3</option>
+                                <option value="XI REGULER 4">XI REGULER 4</option>
+                                <option value="XI REGULER 5">XI REGULER 5</option>
+                                <option value="XI REGULER 6">XI REGULER 6</option>
+                                <option value="XI REGULER 7">XI REGULER 7</option>
+                                <option value="XI REGULER 8">XI REGULER 8</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="reflections-feed-container">
+                        <!-- Reflection cards per student -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: RESULT / ANALYSIS -->
+            <section id="tab-teacher-results" class="tab-content">
+
+                <!-- Summary Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon stat-blue">👥</div>
+                        <div>
+                            <div class="stat-val" id="stat-total-students">0</div>
+                            <div class="stat-label">Total Siswa Masuk</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-green">🎯</div>
+                        <div>
+                            <div class="stat-val" id="stat-class-avg">0</div>
+                            <div class="stat-label">Rata-Rata Nilai</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-purple">🏆</div>
+                        <div>
+                            <div class="stat-val" id="stat-highest-score">0</div>
+                            <div class="stat-label">Nilai Tertinggi</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon stat-amber">📉</div>
+                        <div>
+                            <div class="stat-val" id="stat-lowest-score">0</div>
+                            <div class="stat-label">Nilai Terendah</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ITEM ANALYSIS MATRIX (ANALISIS BUTIR SOAL 1-25) -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">📊 Analisis Butir Soal (Item-by-Item Analysis 1–25)</h2>
+                            <p style="font-size: 0.85rem; color: var(--slate-500); margin-top: 0.2rem;">
+                                Monitoring persentase jawaban benar/salah siswa per nomor soal untuk menentukan materi remedial teaching.
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="exportItemAnalysisCSV()">
+                                📥 Ekspor Analisis Butir Soal (CSV)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="item-table-wrapper">
+                        <table class="data-table" id="table-item-analysis">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px; text-align: center;">No</th>
+                                    <th>Indikator Kompetensi / Skill</th>
+                                    <th style="width: 80px; text-align: center;">Level</th>
+                                    <th style="width: 65px; text-align: center;">Kunci</th>
+                                    <th style="width: 85px; text-align: center;">Benar (✓)</th>
+                                    <th style="width: 85px; text-align: center;">Salah (✗)</th>
+                                    <th style="width: 100px; text-align: center;">% Tuntas</th>
+                                    <th class="bar-cell">Distribusi Ketuntasan</th>
+                                    <th style="width: 90px; text-align: center;">Kategori</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-item-analysis">
+                                <!-- Injected dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- STUDENT ROSTER -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📋 Rekapitulasi Nilai Siswa (Student Roster)</h2>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button class="btn btn-success" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="exportScoresCSV()">
+                                📥 Ekspor Rekap Nilai (CSV)
+                            </button>
+                            <button class="btn btn-outline" style="padding: 0.5rem 0.85rem; font-size: 0.85rem;" onclick="refreshDashboardData()">
+                                🔄 Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filter & Search Bar -->
+                    <div class="filter-bar">
+                        <div style="flex: 1; min-width: 200px;">
+                            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.2rem;">Filter Kelas:</label>
+                            <select id="filter-class" class="form-select" style="padding: 0.45rem 0.75rem;" onchange="applyFilters()">
+                                <option value="ALL">Semua Kelas (12 Kelas)</option>
+                                <option value="XI INT 1">XI INT 1</option>
+                                <option value="XI INT 2">XI INT 2</option>
+                                <option value="XI INT 3">XI INT 3</option>
+                                <option value="XI INT 4">XI INT 4</option>
+                                <option value="XI REGULER 1">XI REGULER 1</option>
+                                <option value="XI REGULER 2">XI REGULER 2</option>
+                                <option value="XI REGULER 3">XI REGULER 3</option>
+                                <option value="XI REGULER 4">XI REGULER 4</option>
+                                <option value="XI REGULER 5">XI REGULER 5</option>
+                                <option value="XI REGULER 6">XI REGULER 6</option>
+                                <option value="XI REGULER 7">XI REGULER 7</option>
+                                <option value="XI REGULER 8">XI REGULER 8</option>
+                            </select>
+                        </div>
+
+                        <div style="flex: 1.5; min-width: 220px;">
+                            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.2rem;">Cari Siswa:</label>
+                            <input type="text" id="search-student" class="form-control" style="padding: 0.45rem 0.75rem;" placeholder="Ketik nama siswa..." oninput="applyFilters()">
+                        </div>
+                    </div>
+
+                    <!-- Student Table -->
+                    <div class="item-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px; text-align: center;">No</th>
+                                    <th>Nama Siswa</th>
+                                    <th style="width: 110px;">Kelas</th>
+                                    <th style="width: 80px; text-align: center;">Nilai</th>
+                                    <th style="width: 100px; text-align: center;">Benar / 25</th>
+                                    <th style="width: 95px; text-align: center;">Waktu</th>
+                                    <th style="width: 120px; text-align: center;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-student-roster">
+                                <!-- Injected dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL DETAIL DIAGNOSA SISWA -->
+    <div id="modal-diagnostics" class="modal-backdrop">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeDiagnosticModal()">&times;</button>
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--slate-800); margin-bottom: 0.25rem;" id="diag-student-name">
+                Nama Siswa
+            </h2>
+            <p style="font-size: 0.85rem; color: var(--slate-500); margin-bottom: 1.25rem;">
+                Kelas: <strong id="diag-student-class">-</strong> • Nilai: <strong id="diag-student-score" style="color: var(--primary);">-</strong>
+            </p>
+
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--slate-800); margin-bottom: 0.5rem;">
+                🔍 Rincian Jawaban Soal (1–25)
+            </h3>
+            <div class="item-table-wrapper" style="margin-bottom: 1.25rem; max-height: 250px;">
+                <table class="data-table" style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th style="width: 45px; text-align: center;">No</th>
+                            <th>Indikator</th>
+                            <th style="width: 70px; text-align: center;">Jawaban</th>
+                            <th style="width: 70px; text-align: center;">Kunci</th>
+                            <th style="width: 75px; text-align: center;">Hasil</th>
+                        </tr>
+                    </thead>
+                    <tbody id="diag-item-tbody">
+                        <!-- Dynamic items -->
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--slate-800); margin-bottom: 0.5rem;">
+                💭 Respon Refleksi Siswa
+            </h3>
+            <div id="diag-reflections-container">
+                <!-- Injected dynamic reflections -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="data.js"></script>
+    <script src="sync.js"></script>
+    <script>
+        const CORRECT_PIN = "311099";
+        let allSubmissions = [];
+        let filteredSubmissions = [];
+
+        function checkTeacherAuth() {
+            const isAuth = sessionStorage.getItem("TEACHER_AUTH_TOKEN_XI_TL");
+            if (isAuth === "LOGGED_IN") {
+                document.getElementById('pin-security-overlay').style.display = 'none';
+                document.getElementById('teacher-main-app').style.display = 'block';
+                initTeacherDashboard();
+            } else {
+                document.getElementById('pin-security-overlay').style.display = 'flex';
+                document.getElementById('teacher-main-app').style.display = 'none';
+            }
+        }
+
+        function verifyTeacherPIN(e) {
+            e.preventDefault();
+            const inputPin = document.getElementById('input-teacher-pin').value.trim();
+            const errorMsg = document.getElementById('pin-error-msg');
+
+            if (inputPin === CORRECT_PIN) {
+                sessionStorage.setItem("TEACHER_AUTH_TOKEN_XI_TL", "LOGGED_IN");
+                document.getElementById('pin-security-overlay').style.display = 'none';
+                document.getElementById('teacher-main-app').style.display = 'block';
+                initTeacherDashboard();
+            } else {
+                errorMsg.innerText = "❌ PIN salah! Silakan coba lagi.";
+                document.getElementById('input-teacher-pin').value = '';
+                document.getElementById('input-teacher-pin').focus();
+            }
+        }
+
+        function lockTeacherMode() {
+            sessionStorage.removeItem("TEACHER_AUTH_TOKEN_XI_TL");
+            checkTeacherAuth();
+        }
+
+        function initTeacherDashboard() {
+            renderTeacherQuestions();
+            refreshDashboardData();
+
+            syncEngine.onNewData((newSub) => {
+                refreshDashboardData();
+            });
+
+            syncEngine.subscribeCloudRealtime((updatedList) => {
+                allSubmissions = updatedList;
+                applyFilters();
+            });
+
+            setInterval(() => {
+                refreshDashboardData(true);
+            }, 10000);
+        }
+
+        function switchTeacherTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            if (tab === 'questions') {
+                document.getElementById('tab-teacher-btn-q').classList.add('active');
+                document.getElementById('tab-teacher-questions').classList.add('active');
+            } else if (tab === 'reflections') {
+                document.getElementById('tab-teacher-btn-ref').classList.add('active');
+                document.getElementById('tab-teacher-reflections').classList.add('active');
+                renderReflectionsFeed();
+            } else if (tab === 'results') {
+                document.getElementById('tab-teacher-btn-res').classList.add('active');
+                document.getElementById('tab-teacher-results').classList.add('active');
+                renderResultsAnalysis();
+            }
+        }
+
+        async function refreshDashboardData(silent = false) {
+            if (!silent) {
+                const el = document.getElementById('live-status-text');
+                if (el) el.innerText = "SYNCING...";
+            }
+            allSubmissions = await syncEngine.getAllSubmissions();
+            const el = document.getElementById('live-status-text');
+            if (el) el.innerText = "PERMANENT CLOUD LIVE";
+            document.getElementById('teacher-sub-count-badge').innerText = `${allSubmissions.length} Data`;
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const classFilter = document.getElementById('filter-class') ? document.getElementById('filter-class').value : 'ALL';
+            const searchKeyword = document.getElementById('search-student') ? document.getElementById('search-student').value.toLowerCase().trim() : '';
+
+            filteredSubmissions = allSubmissions.filter(sub => {
+                const matchClass = classFilter === 'ALL' || sub.studentClass === classFilter;
+                const matchSearch = !searchKeyword || sub.name.toLowerCase().includes(searchKeyword);
+                return matchClass && matchSearch;
+            });
+
+            renderResultsAnalysis();
+            renderReflectionsFeed();
+        }
+
+        function renderTeacherQuestions() {
+            const container = document.getElementById('teacher-questions-list');
+            container.innerHTML = '';
+
+            QUESTIONS_DATA.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.marginBottom = '1.25rem';
+                card.style.borderLeft = '4px solid var(--primary)';
+
+                let passageInfo = '';
+                if (q.passageId && PASSAGES[q.passageId]) {
+                    passageInfo = `<div style="font-size:0.8rem; font-weight:700; color:var(--secondary); margin-bottom:0.5rem;">📖 Cerita Legenda: ${PASSAGES[q.passageId].title} (${PASSAGES[q.passageId].category})</div>`;
+                }
+
+                let optionsHtml = '<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:0.5rem; margin: 0.75rem 0;">';
+                ['A', 'B', 'C', 'D', 'E'].forEach(opt => {
+                    if (q.options[opt]) {
+                        const isCorrect = opt === q.correctAnswer;
+                        optionsHtml += `
+                            <div class="option-item ${isCorrect ? 'correct-opt' : ''}" style="cursor:default; padding: 0.55rem 0.8rem;">
+                                <span class="option-key" style="${isCorrect ? 'background: #16a34a; border-color: #16a34a; color: #fff;' : ''}">${opt}</span>
+                                <span class="option-label">${q.options[opt]} ${isCorrect ? '<span class="correct-opt-badge">KUNCI</span>' : ''}</span>
+                            </div>
+                        `;
+                    }
+                });
+                optionsHtml += '</div>';
+
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <span class="q-badge">Soal #${q.id}</span>
+                        <span class="badge-tag ${q.level === 'HOTS' ? 'badge-hard' : q.level === 'MOTS' ? 'badge-medium' : 'badge-easy'}">${q.level} • ${q.skill}</span>
+                    </div>
+                    ${passageInfo}
+                    <div style="font-weight: 600; font-size: 0.98rem; color: var(--slate-800); white-space: pre-line;">${q.question}</div>
+                    ${optionsHtml}
+                    <div class="explanation-box">
+                        <strong>💡 Pembahasan & Analisis Pedagogi:</strong> ${q.explanation}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function renderReflectionsFeed() {
+            const container = document.getElementById('reflections-feed-container');
+            const refClassFilter = document.getElementById('filter-ref-class') ? document.getElementById('filter-ref-class').value : 'ALL';
+            
+            const list = allSubmissions.filter(sub => refClassFilter === 'ALL' || sub.studentClass === refClassFilter);
+            
+            if (list.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding: 2rem; color: var(--slate-400);">Belum ada respon refleksi dari siswa kelas XI TL untuk filter yang dipilih.</div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            list.forEach(sub => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.marginBottom = '1rem';
+                card.style.background = 'var(--slate-50)';
+
+                const r1 = sub.reflections && sub.reflections.ref1 ? sub.reflections.ref1 : '<em>(Tidak diisi)</em>';
+                const r2 = sub.reflections && sub.reflections.ref2 ? sub.reflections.ref2 : '<em>(Tidak diisi)</em>';
+                const r3 = sub.reflections && sub.reflections.ref3 ? sub.reflections.ref3 : '<em>(Tidak diisi)</em>';
+
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--slate-200); padding-bottom:0.4rem; margin-bottom:0.6rem;">
+                        <div>
+                            <strong style="color:var(--slate-800); font-size:0.95rem;">${sub.name}</strong>
+                            <span class="badge-tag badge-easy" style="margin-left:0.4rem;">${sub.studentClass}</span>
+                        </div>
+                        <span style="font-size:0.75rem; color:var(--slate-500);">${new Date(sub.timestamp).toLocaleString('id-ID')}</span>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:0.75rem;">
+                        <div style="background:#fff; padding:0.75rem; border-radius:8px; border:1px solid var(--slate-200);">
+                            <div style="font-size:0.75rem; font-weight:700; color:var(--primary); margin-bottom:0.25rem;">1. STRUKTUR & KARAKTER TOKOH</div>
+                            <div style="font-size:0.85rem; color:var(--slate-700);">${r1}</div>
+                        </div>
+                        <div style="background:#fff; padding:0.75rem; border-radius:8px; border:1px solid var(--slate-200);">
+                            <div style="font-size:0.75rem; font-weight:700; color:var(--accent); margin-bottom:0.25rem;">2. KENDALA ANALISIS & GRAMMAR</div>
+                            <div style="font-size:0.85rem; color:var(--slate-700);">${r2}</div>
+                        </div>
+                        <div style="background:#fff; padding:0.75rem; border-radius:8px; border:1px solid var(--slate-200);">
+                            <div style="font-size:0.75rem; font-weight:700; color:var(--secondary); margin-bottom:0.25rem;">3. NILAI KEARIFAN LOKAL</div>
+                            <div style="font-size:0.85rem; color:var(--slate-700);">${r3}</div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderResultsAnalysis() {
+            const count = filteredSubmissions.length;
+            document.getElementById('stat-total-students').innerText = count;
+
+            if (count === 0) {
+                document.getElementById('stat-class-avg').innerText = "0";
+                document.getElementById('stat-highest-score').innerText = "0";
+                document.getElementById('stat-lowest-score').innerText = "0";
+                document.getElementById('tbody-item-analysis').innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 2rem; color: var(--slate-400);">Belum ada data siswa yang masuk.</td></tr>`;
+                document.getElementById('tbody-student-roster').innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 2rem; color: var(--slate-400);">Belum ada data nilai.</td></tr>`;
+                return;
+            }
+
+            const scores = filteredSubmissions.map(s => s.score);
+            const sum = scores.reduce((a, b) => a + b, 0);
+            const avg = Math.round(sum / count);
+            const highest = Math.max(...scores);
+            const lowest = Math.min(...scores);
+
+            document.getElementById('stat-class-avg').innerText = avg;
+            document.getElementById('stat-highest-score').innerText = highest;
+            document.getElementById('stat-lowest-score').innerText = lowest;
+
+            renderItemAnalysisTable();
+            renderStudentRosterTable();
+        }
+
+        function renderItemAnalysisTable() {
+            const tbody = document.getElementById('tbody-item-analysis');
+            tbody.innerHTML = '';
+            const totalStudents = filteredSubmissions.length;
+
+            QUESTIONS_DATA.forEach(q => {
+                let correctCount = 0;
+                let wrongCount = 0;
+
+                filteredSubmissions.forEach(sub => {
+                    const studentAns = sub.answers ? sub.answers[q.id] : null;
+                    if (studentAns === q.correctAnswer) {
+                        correctCount++;
+                    } else {
+                        wrongCount++;
+                    }
+                });
+
+                const pctCorrect = totalStudents > 0 ? Math.round((correctCount / totalStudents) * 100) : 0;
+                let difficultyBadge = '<span class="badge-tag badge-easy">Mudah</span>';
+                if (pctCorrect < 50) {
+                    difficultyBadge = '<span class="badge-tag badge-hard">Sukar</span>';
+                } else if (pctCorrect < 75) {
+                    difficultyBadge = '<span class="badge-tag badge-medium">Sedang</span>';
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="text-align:center; font-weight:800;">${q.id}</td>
+                    <td><strong>${q.skill}</strong></td>
+                    <td style="text-align:center;"><span class="badge-tag ${q.level === 'HOTS' ? 'badge-hard' : q.level === 'MOTS' ? 'badge-medium' : 'badge-easy'}">${q.level}</span></td>
+                    <td style="text-align:center;"><span class="badge-tag badge-correct">${q.correctAnswer}</span></td>
+                    <td style="text-align:center; font-weight:700; color:#059669;">${correctCount}</td>
+                    <td style="text-align:center; font-weight:700; color:#dc2626;">${wrongCount}</td>
+                    <td style="text-align:center; font-weight:800;">${pctCorrect}%</td>
+                    <td class="bar-cell">
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: ${pctCorrect}%; background: ${pctCorrect < 50 ? '#ef4444' : pctCorrect < 75 ? '#f59e0b' : '#10b981'};"></div>
+                        </div>
+                    </td>
+                    <td style="text-align:center;">${difficultyBadge}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderStudentRosterTable() {
+            const tbody = document.getElementById('tbody-student-roster');
+            tbody.innerHTML = '';
+
+            filteredSubmissions.forEach((sub, idx) => {
+                const tr = document.createElement('tr');
+                const scoreColor = sub.score >= 75 ? '#166534' : '#991b1b';
+                const scoreBg = sub.score >= 75 ? '#dcfce7' : '#fee2e2';
+
+                tr.innerHTML = `
+                    <td style="text-align:center; font-weight:700;">${idx + 1}</td>
+                    <td style="font-weight:700; color:var(--slate-800);">${sub.name}</td>
+                    <td><span class="badge-tag badge-easy">${sub.studentClass}</span></td>
+                    <td style="text-align:center;">
+                        <span class="badge-tag" style="background:${scoreBg}; color:${scoreColor}; font-size:0.92rem; font-weight:800;">
+                            ${sub.score}
+                        </span>
+                    </td>
+                    <td style="text-align:center; font-weight:700;">${sub.correctCount} / 25</td>
+                    <td style="text-align:center; font-size:0.8rem; color:var(--slate-600);">${sub.timeSpent || '-'}</td>
+                    <td style="text-align:center;">
+                        <button class="btn btn-outline" style="padding:0.3rem 0.65rem; font-size:0.78rem;" onclick="openDiagnosticModal('${sub.id}')">
+                            🔍 Diagnosa
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openDiagnosticModal(subId) {
+            const sub = allSubmissions.find(s => s.id === subId);
+            if (!sub) return;
+
+            document.getElementById('diag-student-name').innerText = sub.name;
+            document.getElementById('diag-student-class').innerText = sub.studentClass;
+            document.getElementById('diag-student-score').innerText = `${sub.score} (${sub.correctCount}/25 Benar)`;
+
+            const itemTbody = document.getElementById('diag-item-tbody');
+            itemTbody.innerHTML = '';
+
+            QUESTIONS_DATA.forEach(q => {
+                const studentAns = sub.answers ? (sub.answers[q.id] || '-') : '-';
+                const isCorrect = studentAns === q.correctAnswer;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="text-align:center; font-weight:700;">#${q.id}</td>
+                    <td>${q.skill}</td>
+                    <td style="text-align:center; font-weight:700;">${studentAns}</td>
+                    <td style="text-align:center; font-weight:700; color:var(--primary);">${q.correctAnswer}</td>
+                    <td style="text-align:center;">
+                        <span class="badge-tag ${isCorrect ? 'badge-correct' : 'badge-wrong'}">
+                            ${isCorrect ? 'BENAR ✓' : 'SALAH ✗'}
+                        </span>
+                    </td>
+                `;
+                itemTbody.appendChild(tr);
+            });
+
+            const refContainer = document.getElementById('diag-reflections-container');
+            const r1 = sub.reflections && sub.reflections.ref1 ? sub.reflections.ref1 : '<em>(Tidak ada respon)</em>';
+            const r2 = sub.reflections && sub.reflections.ref2 ? sub.reflections.ref2 : '<em>(Tidak ada respon)</em>';
+            const r3 = sub.reflections && sub.reflections.ref3 ? sub.reflections.ref3 : '<em>(Tidak ada respon)</em>';
+
+            refContainer.innerHTML = `
+                <div style="background:var(--slate-50); border-radius:8px; padding:0.75rem; margin-bottom:0.5rem; border:1px solid var(--slate-200);">
+                    <div style="font-weight:700; font-size:0.8rem; color:var(--primary);">1. Struktur & Karakter Tokoh:</div>
+                    <div style="font-size:0.85rem; color:var(--slate-700); margin-top:0.2rem;">${r1}</div>
+                </div>
+                <div style="background:var(--slate-50); border-radius:8px; padding:0.75rem; margin-bottom:0.5rem; border:1px solid var(--slate-200);">
+                    <div style="font-weight:700; font-size:0.8rem; color:var(--accent);">2. Kendala Analisis & Grammar:</div>
+                    <div style="font-size:0.85rem; color:var(--slate-700); margin-top:0.2rem;">${r2}</div>
+                </div>
+                <div style="background:var(--slate-50); border-radius:8px; padding:0.75rem; border:1px solid var(--slate-200);">
+                    <div style="font-weight:700; font-size:0.8rem; color:var(--secondary);">3. Nilai Kearifan Moral:</div>
+                    <div style="font-size:0.85rem; color:var(--slate-700); margin-top:0.2rem;">${r3}</div>
+                </div>
+            `;
+
+            document.getElementById('modal-diagnostics').classList.add('open');
+        }
+
+        function closeDiagnosticModal() {
+            document.getElementById('modal-diagnostics').classList.remove('open');
+        }
+
+        function exportScoresCSV() {
+            if (filteredSubmissions.length === 0) {
+                alert("Tidak ada data untuk diekspor.");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "No,Nama Siswa,Kelas,NIS/Absen,Nilai Akhir,Jumlah Benar,Total Soal,Waktu Pengerjaan,Waktu Submit\n";
+
+            filteredSubmissions.forEach((s, idx) => {
+                const row = [
+                    idx + 1,
+                    `"${s.name.replace(/"/g, '""')}"`,
+                    `"${s.studentClass}"`,
+                    `"${s.studentId || '-'}"`,
+                    s.score,
+                    s.correctCount,
+                    25,
+                    `"${s.timeSpent || '-'}"`,
+                    `"${new Date(s.timestamp).toLocaleString('id-ID')}"`
+                ];
+                csvContent += row.join(",") + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Rekap_Nilai_PSTS_XI_TL_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function exportItemAnalysisCSV() {
+            if (filteredSubmissions.length === 0) {
+                alert("Tidak ada data untuk diekspor.");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Nomor Soal,Indikator Skill,Tingkat Kognitif,Kunci Jawaban,Jumlah Benar,Jumlah Salah,Persentase Ketuntasan (%)\n";
+
+            const totalStudents = filteredSubmissions.length;
+
+            QUESTIONS_DATA.forEach(q => {
+                let correct = 0;
+                let wrong = 0;
+                filteredSubmissions.forEach(sub => {
+                    if (sub.answers && sub.answers[q.id] === q.correctAnswer) {
+                        correct++;
+                    } else {
+                        wrong++;
+                    }
+                });
+                const pct = totalStudents > 0 ? Math.round((correct / totalStudents) * 100) : 0;
+                const row = [
+                    q.id,
+                    `"${q.skill.replace(/"/g, '""')}"`,
+                    q.level,
+                    q.correctAnswer,
+                    correct,
+                    wrong,
+                    `${pct}%`
+                ];
+                csvContent += row.join(",") + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Analisis_Butir_Soal_PSTS_XI_TL_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        window.addEventListener('DOMContentLoaded', checkTeacherAuth);
+    </script>
+</body>
+</html>
